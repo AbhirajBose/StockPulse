@@ -31,14 +31,14 @@ const getRefreshAndAccessToken = async (userid) => {
   
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { username, email, fullName, password, phone } = req.body;
+  const { username, email, fullName, password, phone, balance } = req.body;
   if (
     [username, email, fullName, password, phone].some(
-      (field) => field?.trim() === ""
-    )
+      (field) => typeof field !== "string" || field.trim() === ""
+    ) || balance === undefined
   ) {
     throw new ApiError(400, "All fields are required");
-  }
+  }  
 
   const existuser = await User.findOne({
     $or: [{ username }, { email }],
@@ -53,6 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     username: username.toLowerCase(),
+    balance
   });
 
   const createduser = await User.findById(user._id).select(
@@ -70,14 +71,14 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 const loginUser = asyncHandler(async (req, res) => {
-    const { username, email, password } = req.body;
+    const {  email, password } = req.body;
   
-    if (!(username || email)) {
+    if (!email) {
       throw new ApiError(401, "Username Or Email is required");
     }
   
     const user = await User.findOne({
-        $or: [{ username }, { email }],
+        $or: [{ email }],
       });
   
     const isPasswordvalid = await  user.isPasswordCorrect(password);
@@ -92,9 +93,10 @@ const loginUser = asyncHandler(async (req, res) => {
       "-password -refreshToken"
     );
     const options = {
-      httpOnly: true,
-      secure: true,
-    };
+  httpOnly: true,
+  secure: false, // Set to `true` in production with HTTPS
+  sameSite: "lax", // Adjust as needed
+};
   
     return res
       .status(200)

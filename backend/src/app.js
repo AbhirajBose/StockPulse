@@ -4,10 +4,13 @@ import cors from 'cors';
 
 const app = express()
 
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials:true
-}))
+app.use(
+    cors({
+      origin: "http://localhost:5173", // Allow frontend origin
+      credentials: true, // Allow cookies & authentication headers
+    })
+  );
+
 
 app.use(express.json())
 app.use(express.urlencoded({

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Login from './login'
+import Login from '../pages/login'
 const navbar = () => {
   return (
     <div>
