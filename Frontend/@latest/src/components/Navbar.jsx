@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Login from './login'
-const navbar = (props) => {
-  if(props.brad=="true")
-    
+import Login from '../pages/login'
+const navbar = () => {
   return (
     <div>
       <nav className="max-w-screen flex justify-around items-center bg-black min-h-[10vh] nav_grad">

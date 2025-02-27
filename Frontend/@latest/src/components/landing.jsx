@@ -1,4 +1,4 @@
-import Login from "./login";
+import Login from "../pages/login";
 import NavBar from "./navbar";
 import { Link } from "react-router-dom";
 function Landing() {
