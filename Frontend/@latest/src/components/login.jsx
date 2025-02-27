@@ -14,7 +14,7 @@ export default function () {
       <NavBar />
       <div className="flex h-[90vh] justify-center items-center">
         <div className="w-[60vw] bg-[rgb(30,30,30)] rounded-3xl gap-10 h-[60vh] items-center flex justify-center">
-          <div className="graph w-[25vw] h-[50vh]">
+          <div className="graph w-[25vw] bg-[rgb(30,30,30)] h-[50vh]">
             <img src="./src/assets/Graph.png"></img>
           </div>
           <div className="signupblock w-[20vw] gap-5 flex flex-col">
