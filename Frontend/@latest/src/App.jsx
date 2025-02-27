@@ -1,11 +1,15 @@
 import "./App.css";
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import Landing from "./components/landing";
-import SignUp from "./components/signup";
-import Login from "./components/login";
+
+
 import Menubar from "./components/menubar";
 import ForgotPasswordDropdown from "./components/setting";
 import Dashboard from "./components/dashboard";
+
+import SignUp from "./pages/signup.jsx";
+import Login from "./pages/login.jsx";
+
 function App() {
   return (
     <BrowserRouter>

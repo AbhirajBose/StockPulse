@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import stockSchema from "./Stock.models.js"; // Import Stock schema
+import { ACCESS_TOKEN_EXPIRY, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, REFRESH_TOKEN_EXPIRY } from "../constants.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -30,6 +31,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    balance: {
+      type: Number,
+      required: true, 
+      default: 0,
+    },
     refreshToken: {
       type: String,
     },
@@ -56,9 +62,9 @@ userSchema.methods.generateAccessToken = function () {
       fullName: this.fullName,
       email: this.email,
     },
-    process.env.ACCESS_TOKEN_SECRET,
+    ACCESS_TOKEN_SECRET,
     {
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+      expiresIn: ACCESS_TOKEN_EXPIRY,
     }
   );
 };
@@ -68,9 +74,9 @@ userSchema.methods.generateRefreshToken = function () {
     {
       _id: this._id,
     },
-    process.env.REFRESH_TOKEN_SECRET,
+    REFRESH_TOKEN_SECRET,
     {
-      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+      expiresIn: REFRESH_TOKEN_EXPIRY,
     }
   );
 };
