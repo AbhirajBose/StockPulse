@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom'
 const NavBar = () => {
   
 
-import Login from '../pages/login'
 
   return (
     <div>
-      <nav className="max-w-screen flex justify-around items-center bg-black min-h-[10vh] nav_grad">
+      <nav className="max-w-screen flex justify-between px-[5px] items-center bg-black min-h-[10vh] nav_grad">
         <div>
           <img src='./src/assets/logo.png' width="200px"></img>
         </div>
