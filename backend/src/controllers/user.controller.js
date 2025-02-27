@@ -6,23 +6,29 @@ import mongoose from "mongoose";
 import { decode } from "jsonwebtoken";
 
 const getRefreshAndAccessToken = async (userid) => {
-  try {
-    const user = User.findById(userid);
-    const accessToken = user.generateAccessToken();
-    const refreshToken = user.generateRefreshToken();
-
-    user.refreshToken = refreshToken;
-
-    await user.save({ validateBeforeSave: false });
-
-    return { accessToken, refreshToken };
-  } catch (error) {
-    throw new ApiError(
-      500,
-      error?.messege || "Error while generating access or refresh token"
-    );
-  }
-};
+    try {
+      const user = await User.findById(userid); // ✅ Await the user data
+  
+      if (!user) {
+        throw new ApiError(404, "User not found"); // ✅ Handle null user case
+      }
+  
+      const accessToken = user.generateAccessToken(); // ✅ Call methods on actual user
+      const refreshToken = user.generateRefreshToken();
+  
+      user.refreshToken = refreshToken; // ✅ Save the new refresh token
+  
+      await user.save({ validateBeforeSave: false });
+  
+      return { accessToken, refreshToken };
+    } catch (error) {
+      throw new ApiError(
+        500,
+        error?.message || "Error while generating access or refresh token"
+      );
+    }
+  };
+  
 
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, fullName, password, phone } = req.body;
@@ -70,15 +76,17 @@ const loginUser = asyncHandler(async (req, res) => {
       throw new ApiError(401, "Username Or Email is required");
     }
   
-    const user = User.findOne($or[({ username }, { email })]);
+    const user = await User.findOne({
+        $or: [{ username }, { email }],
+      });
   
-    const isPasswordvalid = user.isPasswordCorrect(password);
+    const isPasswordvalid = await  user.isPasswordCorrect(password);
   
     if (!isPasswordvalid) {
       throw new ApiError(401, "Password is incorrect");
     }
   
-    const { accessToken, refreshToken } = getRefreshAndAccessToken(user._id);
+    const { accessToken, refreshToken } = await getRefreshAndAccessToken(user._id);
   
     const loggedinUser = await User.findById(user._id).select(
       "-password -refreshToken"
