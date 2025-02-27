@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Login from './login'
-const navbar = (props) => {
-  if(props.brad=="true")
-    
+const NavBar = () => {
+  
   return (
     <div>
       <nav className="max-w-screen flex justify-around items-center bg-black min-h-[10vh] nav_grad">
@@ -12,7 +11,7 @@ const navbar = (props) => {
         </div>
 
         <div className="logsign flex gap-10 items-center">
-        <button className="hover:bg-gray-700 rounded-lg p-2"><Link to="/login">Log IN</Link></button>
+        <button className="hover:bg-gray-700 rounded-lg p-2"><Link to="/login">Log In</Link></button>
         <button className="hover:bg-gray-700 rounded-lg p-2"><Link to="/signup">Sign Up</Link></button>
         </div>
       </nav>
@@ -20,4 +19,4 @@ const navbar = (props) => {
   )
 }
 
-export default navbar
+export default NavBar;
