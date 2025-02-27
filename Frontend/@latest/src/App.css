@@ -1,42 +1,115 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import "tailwindcss";
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
 }
+.para {
+  font-family: "ABeeZee", serif;
+}
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+.nav_grad {
+  border-bottom: 2px solid;
+  border-image: linear-gradient(45deg, #00f7ff, #476c6d) 1;
+}
+.explorenow {
+  border: 2px solid red;
+  border-radius: 50%;
+  border-image: linear-gradient(45deg, #00f7ff, #476c6d) 1;
+}
+
+.btn {
+  padding: 15px 40px;
+  color: aliceblue;
+  cursor: pointer;
+  z-index: 0;
+  font-family: "Open Sans", sans-serif;
+  outline: none;
+  position: relative;
+
+  z-index: 0;
+  border: none;
+  border-radius: 12px;
+}
+.btn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #33333375;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+.btn::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    rgb(219, 7, 226),
+    red
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  transform: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+  animation: glowing 20s linear infinite;
+}
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
   }
 }
-
-.card {
-  padding: 2em;
+.btn:hover::before {
+  opacity: 1;
+}
+.btn:active::after {
+  background: transparent;
+}
+.btn:active {
+  color: #161616;
+  font-weight: bold;
 }
 
-.read-the-docs {
-  color: #888;
+.standard-basic::placeholder {
+  color: white;
+}
+.txtfieldcol{
+  color: white;
+
+}
+.graph{
+  background-color: #171717;
 }
