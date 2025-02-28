@@ -39,7 +39,6 @@ const TrendingStocks = () => {
     <div className="w-[100vw] max-w-5xl gap-5 flex flex-row rounded-lg shadow-lg">
       <SidebarNavigation />
       <div className="">
-        <h1 className="text-2xl font-bold p-4 text-center">Trending Stocks</h1>
         <div className="grid grid-cols-3 gap-4">
           {stocks.map((stock, index) => (
             <div

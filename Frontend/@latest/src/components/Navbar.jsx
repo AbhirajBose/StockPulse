@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 
 const NavBar = () => {
   
-
-import Login from '../pages/login'
-
   return (
     <div>
       <nav className="max-w-screen flex justify-around items-center bg-black min-h-[10vh] nav_grad">
