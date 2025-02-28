@@ -10,7 +10,7 @@ const SidebarNavigation = () => {
 
 
   const menuItems = [
-    { text: 'HOMEPAGE', path: '/' },
+    { text: 'HOMEPAGE', path: '/home' },
     { text: 'DASHBOARD', path: '/dashboard' },
     { text: 'MARKETS', path: '/markets' },
     { text: 'TUTORIALS', path: '/tutorials' },
@@ -42,7 +42,7 @@ const SidebarNavigation = () => {
     <Box
       sx={{
         width: '200px',
-        height: '100%',
+        height: 'calc(100vh - 10vh)',
         backgroundColor: '#1a1a1a',
         color: 'white',
         borderRight: '1px solid #00c8c8'

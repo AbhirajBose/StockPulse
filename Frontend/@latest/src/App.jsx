@@ -3,21 +3,23 @@ import { BrowserRouter, Routes,Route } from "react-router-dom";
 import Landing from "./components/landing";
 import InvestmentDashboard from "./components/pie.jsx";
 import Menubar from "./components/menubar";
-import TrendingStocks from "./components/homepage.jsx";
-import Dashboard from "./components/dashboard";
-import CustomPieChart from "./components/pie.jsx";
+import ForgotPasswordDropdown from "./components/setting";
+import TrendingStocks from "./pages/homepage.jsx";
 import SignUp from "./pages/signup.jsx";
 import Login from "./pages/login.jsx";
-
+import Dashboard from "./pages/Dashboard.jsx";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing/>}/>
         <Route path="/signup" element={<SignUp/>}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/homepage" element={<TrendingStocks/>}/>
+        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/home" element={<TrendingStocks/>}/>
+
+
+
       </Routes>
     </BrowserRouter>
   );

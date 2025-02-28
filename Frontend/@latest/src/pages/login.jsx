@@ -32,7 +32,7 @@ export default function SignIn() {
       if (response.status === 200) {
         console.log("Login Successful", response.data);
         localStorage.setItem("accessToken", response.data.accessToken);
-        window.location.href = "/";
+        window.location.href = "/home";
         alert("Login Successful!");
       }
     } catch (err) {

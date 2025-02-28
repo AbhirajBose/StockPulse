@@ -47,6 +47,7 @@ export default function SignUp() {
         "http://localhost:3000/api/v1/users/register",
         payload
       );
+      window.location.href = "/login";
       alert("Registration successful!");
       console.log(response.data);
     } catch (error) {
