@@ -45,6 +45,9 @@ export default function SignIn() {
       <NavBar />
       <div className="flex h-[90vh] justify-center items-center">
         <div className="w-[60vw] bg-[rgb(30,30,30)] rounded-3xl gap-10 h-[60vh] items-center flex justify-center">
+        <div className="graph w-[25vw] h-[50vh]">
+            <img src="./src/assets/Graph.png" alt="Graph" />
+          </div>
           <div className="signupblock w-[20vw] gap-5 flex flex-col">
             <h1 className="text-2xl text-white">Sign In</h1>
 

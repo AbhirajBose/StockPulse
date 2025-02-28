@@ -73,9 +73,7 @@ const InvestmentDashboard = () => {
 
   return (
     <Box sx={{ bgcolor: '#121212', color: 'white', p: 2, minHeight: '100vh' }}>
-      <Typography variant="h4" align="center" gutterBottom sx={{ mb: 4 }}>
-        DASHBOARD
-      </Typography>
+      
       
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
         {/* Current Holdings Card */}
