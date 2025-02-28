@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const NavBar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Simulating fetching user data (Replace this with API call if needed)
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUser(storedUser);
-    }
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:5000/api/v1/users", {
+          withCredentials: true, // Ensures cookies are sent with request
+        });
+
+        setUser(data.user);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
   }, []);
 
   return (

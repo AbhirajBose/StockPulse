@@ -5,9 +5,13 @@ import TrendingStocks from "./pages/homepage.jsx";
 import SignUp from "./pages/signup.jsx";
 import Login from "./pages/login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+
 import TradingEducationPage from "./pages/Tutorials.jsx";
 import Profile from "./pages/Profile.jsx";
 import Leaderboard from "./pages/Leaderboard.jsx";
+
+import Stocks from "./pages/Stocks.jsx";
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +24,10 @@ function App() {
         <Route path="/tutorials" element={<TradingEducationPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/leaderboard" element={<Leaderboard/>}/>
+        <Route path="/stocks" element={<Stocks />}/>
+        <Route path="/stocks/:symbol" element={<Stocks />} />
+
+
       </Routes>
     </BrowserRouter>
   );

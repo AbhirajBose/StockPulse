@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SidebarNavigation from "../components/menubar";
 import NavBar from "../components/navbar";
 
@@ -12,68 +13,38 @@ const COINS = [
 
 const TrendingStocks = () => {
   const [cryptoData, setCryptoData] = useState({});
-  const [socket, setSocket] = useState(null);
-  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
-    let ws;
-    let reconnectTimeout;
+    const ws = new WebSocket("wss://stream.binance.com:9443/ws");
 
-    const connectWebSocket = () => {
-      if (retryCount > 5) {
-        console.error("WebSocket retry limit reached. Not reconnecting.");
-        return;
-      }
-
-      console.log("Connecting to WebSocket...");
-      ws = new WebSocket("wss://stream.binance.com:9443/ws");
-      setSocket(ws);
-
-      ws.onopen = () => {
-        console.log("WebSocket Connected!");
-        setRetryCount(0);
-
-        const subscription = {
-          method: "SUBSCRIBE",
-          params: COINS.map((coin) => `${coin.symbol.toLowerCase()}usdt@ticker`),
-          id: 1,
-        };
-
-        ws.send(JSON.stringify(subscription));
-      };
-
-      ws.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        if (message.s && message.c) {
-          setCryptoData((prevData) => ({
-            ...prevData,
-            [message.s.replace("USDT", "")]: {
-              PRICE: parseFloat(message.c),
-              CHANGEPCT24HOUR: parseFloat(message.P),
-            },
-          }));
-        }
-      };
-
-      ws.onerror = (error) => {
-        console.error("WebSocket Error:", error);
-      };
-
-      ws.onclose = () => {
-        console.warn("WebSocket Disconnected. Reconnecting in 3 seconds...");
-        setRetryCount((prev) => prev + 1);
-        reconnectTimeout = setTimeout(connectWebSocket, 3000);
-      };
+    ws.onopen = () => {
+      console.log("WebSocket Connected!");
+      ws.send(JSON.stringify({ 
+        method: "SUBSCRIBE",
+        params: COINS.map((coin) => `${coin.symbol.toLowerCase()}usdt@ticker`),
+        id: 1
+      }));
     };
 
-    connectWebSocket();
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      if (message.s && message.c) {
+        setCryptoData((prevData) => ({
+          ...prevData,
+          [message.s.replace("USDT", "")]: {
+            PRICE: parseFloat(message.c),
+            CHANGEPCT24HOUR: parseFloat(message.P),
+          },
+        }));
+      }
+    };
+
+    ws.onclose = () => {
+      console.warn("WebSocket Disconnected.");
+    };
 
     return () => {
-      if (ws) {
-        console.log("Closing WebSocket...");
-        ws.close();
-      }
-      clearTimeout(reconnectTimeout);
+      ws.close();
     };
   }, []);
 
@@ -88,16 +59,18 @@ const TrendingStocks = () => {
             {COINS.map(({ symbol, name, logo }, index) => {
               const crypto = cryptoData[symbol] || {};
               return (
-                <div key={index} className="flex justify-around items-center p-3 bg-gray-800 rounded-lg shadow-md cursor-pointer">
-                  <img src={logo} alt={name} className="w-8 h-8 mr-3" />
-                  <span className="text-white font-bold mr-2">{symbol}</span>
-                  <span className={`text-sm mr-2 ${crypto.CHANGEPCT24HOUR >= 0 ? "text-green-400" : "text-red-400"}`}>
-                    {crypto.CHANGEPCT24HOUR ? `${crypto.CHANGEPCT24HOUR.toFixed(2)}%` : "N/A"}
-                  </span>
-                  <span className="text-green-300 font-semibold">
-                    {crypto.PRICE ? `$${crypto.PRICE.toFixed(2)}` : "Loading..."}
-                  </span>
-                </div>
+                <Link to={`/stocks/${symbol}`} key={index} className="no-underline">
+                  <div className="flex justify-around items-center p-3 bg-gray-800 rounded-lg shadow-md cursor-pointer">
+                    <img src={logo} alt={name} className="w-8 h-8 mr-3" />
+                    <span className="text-white font-bold mr-2">{symbol}</span>
+                    <span className={`text-sm mr-2 ${crypto.CHANGEPCT24HOUR >= 0 ? "text-green-400" : "text-red-400"}`}>
+                      {crypto.CHANGEPCT24HOUR ? `${crypto.CHANGEPCT24HOUR.toFixed(2)}%` : "N/A"}
+                    </span>
+                    <span className="text-green-300 font-semibold">
+                      {crypto.PRICE ? `$${crypto.PRICE.toFixed(2)}` : "Loading..."}
+                    </span>
+                  </div>
+                </Link>
               );
             })}
           </div>
