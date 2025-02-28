@@ -1,8 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import Landing from "./components/landing";
-
-
+import InvestmentDashboard from "./components/pie.jsx";
 import Menubar from "./components/menubar";
 import ForgotPasswordDropdown from "./components/setting";
 import TrendingStocks from "./pages/homepage.jsx";
