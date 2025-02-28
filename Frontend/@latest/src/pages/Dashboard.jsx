@@ -1,13 +1,9 @@
-import React from "react";
-import StockTab from "../components/stockTab";
-
-const Dashboard = () => {
-    return (
-      <div className="w-screen h-screen bg-white flex items-center justify-center">
-        <StockTab />
-      </div>
-    );
-  };
-  
-
-export default Dashboard;
+import SidebarNavigation from "../components/menubar.jsx";
+import InvestmentDashboard from "../components/pie.jsx";
+export default function Dashboard(){
+  return(
+  <div className="flex">
+    <SidebarNavigation />
+    <InvestmentDashboard />
+  </div>);
+}
